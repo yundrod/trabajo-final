@@ -31,13 +31,9 @@ class Player
 
 class proyectil{
  public:
-  float angle,range;
-  float max_height;
-  float v_0;
-  float time;
+  float angle,range,max_height,v_0,time,p;
   Point V;
   Point C;
-  float p;
   Time t1;
   CircleShape proy;
   proyectil(float a, float b,float angle,float v_0){
