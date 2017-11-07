@@ -13,12 +13,21 @@ int main(){
   line.setPosition(0,suelo);
   CircleShape player1(10);
   player1.setPosition(0.0, suelo-20);
-  float angle, v_0;
+  float aux1, angle, v_0;
   cout << "Inserta el angulo: ";
   cin >> angle;
   cout << "Inserta la velocidad inicial: ";
   cin >> v_0;
-  proyectil bomba(0.0,suelo-5,angle,v_0);
+	
+  if (angle==90){
+  	aux1=0;
+  }
+  else
+  {
+  	aux1=angle;
+  }
+  
+  proyectil bomba(0.0,suelo-5,aux1,v_0);
 
   RenderWindow window(VideoMode(800, 600), "My render");
   Time p = seconds(5.0);
