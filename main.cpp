@@ -1,57 +1,64 @@
-#include "modelo/clases.h"
+#include <iostream>
+#include <math.h>
+#include <stdlib.h>
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Time.hpp>
 
+#define PI 3.14159265
 
 using namespace std;
 using namespace sf;
 
-
 int main(){
+    RectangleShape canon;
+    canon.setOrigin(Vector2f(3,0));
+    canon.setSize(Vector2f(6,-20));
+    canon.setPosition(Vector2f(400,300));
 
+    CircleShape player(10);
+    player.setPosition(390,290);
 
-  //Point coord(x , y);
-  RectangleShape line(Vector2f(800, 5)); //linea base
-  line.setPosition(0,suelo);
-  CircleShape player1(10);
-  player1.setPosition(0.0, suelo-20);
-  float angle, v_0;
-  cout << "Inserta el angulo: ";
-  cin >> angle;
-  cout << "Inserta la velocidad inicial: ";
-  cin >> v_0;
-  proyectil bomba(0.0,suelo-5,angle,v_0);
+    RenderWindow window(VideoMode(800, 600), "My render");
 
-  RenderWindow window(VideoMode(800, 600), "My render");
-  Time p = seconds(5.0);
-  while(window.isOpen()){
-    Event event;
-    while (window.pollEvent(event))
-      {
+    while(window.isOpen()){
+        Event event;
+        while (window.pollEvent(event))
+        {
 	// "close requested" event: we close the window
-	if (event.type == Event::Closed)
-	  window.close();
-	if(Keyboard::isKeyPressed(Keyboard::Escape)){
-	  window.close();
-	}
-      }
-    // clear the window with black color
-    window.clear(Color(0,0,0));
-    // draw everything here...
-    window.draw(player1);
-    window.draw(bomba.proy);
-    window.draw(line);
-    // end the current frame
-    window.display();
-    bomba.movimiento();
-    sleep(bomba.t1);
-    if(bomba.C.y+5 > suelo){
-      sleep(p);
-      break;
-    }
+        if (event.type == Event::Closed)
+            window.close();
+        if(Keyboard::isKeyPressed(Keyboard::Escape))
+            window.close();
+        if(Keyboard::isKeyPressed(Keyboard::Up)){
 
+            canon.rotate(-1);
+        }
+        if(Keyboard::isKeyPressed(Keyboard::Down)){
 
+            canon.rotate(1);
+        }
+        if(Keyboard::isKeyPressed(Keyboard::Left)){
 
+            canon.move(-1,0);
+            player.move(-1,0);
+        }
+        if(Keyboard::isKeyPressed(Keyboard::Right)){
+
+            canon.move(1,0);
+            player.move(1,0);
+        }
+        // clear the window with black color
+        window.clear(Color(0,0,0));
+        // draw everything here...
+        //window.draw(player);
+        window.draw(canon);
+        window.draw(player);
+        // end the current frame
+        window.display();
+        }
   }
-  cout<<"end of program";
 
   return 0;
 }
